@@ -1,5 +1,6 @@
 import urllib.request
 import re
+import csv
 
 class Reader: 
 
@@ -22,7 +23,6 @@ class Reader:
                                  "Psychology","Public Health","Public Policy","Religious Studies","Science, Technology, and Society","Slavic Studies","Social Analysis and Research","Sociology","South Asian Studies",
                                  "Statistics","Theatre Arts and Performance Studies","Urban Studies","Visual Art"}
         self.populate_stc_dict()
-        self.filler = {}
 
     def populate_stc_dict(self):
         ''' populates the subject to code dictionary
@@ -42,7 +42,14 @@ class Reader:
         self.subject_to_code["Mathematics-Economics"] = "mtec"
         self.subject_to_code["Economics"] = "econ"
         self.subject_to_code["Mathematics"] = "math"
-        self.subject_to_code["Computer Science"] = "csci"
+        self.subject_to_code["Computer Science"] = "comp"
+
+        with open('subject_to_code_dict.csv', 'w') as csvFile:
+            writer = csv.writer(csvFile)
+            for key, value in self.subject_to_code.items():
+                writer.writerow([key, value])
+
+        print("successfully saved stc dict as csv")
 
 
 
