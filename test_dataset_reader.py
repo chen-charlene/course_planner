@@ -36,7 +36,14 @@ def test_ClassReader_dict_populate():
 
 def test_populate_class_list():
     test_class_reader = ClassReader()
-    test_class_reader.populate_class_list()
+    test_class_reader.scrape_html("comp")
+    test_class_reader.populate_class_list("webtext.txt")
+    test_class_reader.scrape_course_html("comp")
+
+def test_course_prereq():
+    test_class_reader = ClassReader()
+    test_class_reader.populate_course_prereq()
+
 
 
 
