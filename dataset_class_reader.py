@@ -4,6 +4,8 @@ import csv
 import os
 from pathlib import Path
 
+#! realized issue with not all information about classes being available this way, temporarily shelved
+
 class ClassReader:
 
     def __init__(self) -> None:
@@ -55,32 +57,13 @@ class ClassReader:
                 txt = fp.read()
                 fp.close()
 
-                prereq_string = re.findall(r'Prerequisites:([^.]+?)\.|Prerequisite:([^.]+?)\.', txt)
+                prereq_string = re.findall(r'Prerequisites*:([^.]+?)\.', txt)
                 child_name = child.parts[1].split('.html')
                 course_to_prereq_string[child_name[0]] = prereq_string
         print("hi")
-
-        
-        
-        # path = "course_html"
-        # files = glob.glob(path)
-        # try:
-        #     for filename in os.listdir(os.getcwd()):
-        #         with open(os.path.join(os.getcwd(), filename), 'r') as fp:
-            
-        #     # for course_html in dir:
-        #         # fp = open(course_html, "r")
-        #         txt = fp.read()
-        #         fp.close()
-
-        #         prereq_string = re.findall(r'Prerequisites:([^.]+?)\.', txt)
-        #         split_str = prereq_string.split(': ')
-        #         #course_to_prereq_string[]
-        # except:
-        #     raise ValueError("Website html not found!, Try running scrape_html first")
+        print(course_to_prereq_string)
         
 
-        
         
     def populate_class_list(self, weblist_link):
         
@@ -113,6 +96,7 @@ if __name__ == "__main__":
     # CR.scrape_html(subject_code)
     # CR.populate_class_list("webtext.txt")
     # CR.scrape_course_html()
+    CR.populate_course_prereq()
 
     
 
