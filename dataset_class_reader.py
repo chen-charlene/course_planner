@@ -4,18 +4,17 @@ import csv
 import os
 from pathlib import Path
 
-#! realized issue with not all information about classes being available this way, temporarily shelved
-
+#! realized issue with not all information about classes being available this way, temporarily depreicated
 class ClassReader:
 
     def __init__(self) -> None:
         with open('subject_to_code_dict.csv') as csv_file:
             reader = csv.reader(csv_file)
             self.subject_to_code = dict(reader)
-            self.class_list = []
-            self.distinct_class_set = []
+            self.class_list = [] #Any mentions of courses
+            self.distinct_class_set = [] #Unique courses mentioned
 
-
+    #~ Scrapes html data into "webtext.txt"
     def scrape_html(self, major_code):
         ''' creates list of all courses that count to the concentration
         '''
@@ -27,6 +26,7 @@ class ClassReader:
         fp.write(txt)
         fp.close()
 
+    #~ Scapes all course page html into folder
     def scrape_course_html(self):
         ''' read and write all class' html into folder
         '''
@@ -64,7 +64,7 @@ class ClassReader:
         print(course_to_prereq_string)
         
 
-        
+    #~ Takes webtext.txt and finds all the courses mentioned (including alternative courses)
     def populate_class_list(self, weblist_link):
         
         try:
@@ -88,15 +88,17 @@ class ClassReader:
         #populate distinct class list
         unWantedWords = ["orclass", 'class="blockindent">&amp']
         self.distinct_class_set = set([x for x in class_code_clean if x not in unWantedWords])
+    
         
         
 if __name__ == "__main__":
     CR = ClassReader()
-    # subject_code = CR.subject_to_code["Computer Science"]
+    subject_code = CR.subject_to_code["Computer Science"]
     # CR.scrape_html(subject_code)
-    # CR.populate_class_list("webtext.txt")
+    CR.populate_class_list("webtext.txt")
+    print(len(CR.distinct_class_set))
     # CR.scrape_course_html()
-    CR.populate_course_prereq()
+    # CR.populate_course_prereq()
 
     
 

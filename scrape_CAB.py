@@ -67,7 +67,7 @@ class scrape_CAB:
     #*put search by words into own func
     def search_by_course(self, course):
         #~ input a course and will search cab@brown for the specficied course prereqs.
-        
+        print("This is just here to prevent indent error")
         # elem = self.driver.find_element(By.ID, "crit-keyword") 
 
 
